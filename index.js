@@ -2,6 +2,12 @@ const qrcode = require('qrcode-terminal')
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const nodeCron = require('node-cron');
 const scraper = require('./scraper')
+require('dotenv').config()
+
+
+
+const mainGroupName = process.env.MAIN_GROUP_NAME
+const testGroupName = 'Whatsapp'
 
 // Use the saved values
 const client = new Client({
@@ -16,9 +22,7 @@ client.on('ready', () => {
     console.log('Client is ready!');
     client.getChats().then( chats => {
 
-        const testGroupName = 'Whatsapp'
-
-        const myGroup = chats.find((chat) => chat.name === testGroupName);
+        const myGroup = chats.find((chat) => chat.name === mainGroupName);
         client.sendMessage(
             myGroup.id._serialized, 'Hello from the other side!'
         )
@@ -37,13 +41,14 @@ client.on('ready', () => {
                         myGroup.id._serialized, `Hello, this is a scheduled message(position ${position})!`
                     )
                 }
-
+                
                 client.sendMessage(
                     myGroup.id._serialized, ` 💡\`\`\`LINKEDIN JOB ALERTS\`\`\`💡
                     \n *Title*: ${title}
                     \n *Company*: ${company}
                     \n *Location*: ${location}
-                    \n *Link*: ${link}`
+                    \n *Link*: ${link}
+                    `
                 )
                 position++
             });
