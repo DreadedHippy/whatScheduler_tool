@@ -1,8 +1,7 @@
 const qrcode = require('qrcode-terminal')
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const nodeCron = require('node-cron');
-
-// const url = 'https://www.linkedin.com/jobs/search/?currentJobId=3364459444&geoId=105693087&keywords=web%20developer&location=Lagos%2C%20Lagos%20State%2C%20Nigeria&refresh=true'
+const scraper = require('./scraper')
 
 // Use the saved values
 const client = new Client({
@@ -16,17 +15,40 @@ client.on('qr', (qr) => {
 client.on('ready', () => {
     console.log('Client is ready!');
     client.getChats().then( chats => {
-        const myGroup = chats.find((chat) => chat.name === 'Whatsapp');
+
+        const testGroupName = 'Whatsapp'
+
+        const myGroup = chats.find((chat) => chat.name === testGroupName);
         client.sendMessage(
             myGroup.id._serialized, 'Hello from the other side!'
         )
-        let position = 1
-        const job = nodeCron.schedule("*/30 * * * *", () => {
-            client.sendMessage(
-                myGroup.id._serialized, `Hello, this is a scheduled message(position ${position})!`
-            )
-            position++
-        });
+
+        let position = 0
+
+        scraper.jobs.then((result) => {
+            const job = nodeCron.schedule("*/30 * * * * *", () => {
+                let title = result[position].Title
+                let company = result[position].Company
+                let location = result[position].Location
+                let link = result[position].Link
+
+                if(position > 50){
+                    return client.sendMessage(
+                        myGroup.id._serialized, `Hello, this is a scheduled message(position ${position})!`
+                    )
+                }
+
+                client.sendMessage(
+                    myGroup.id._serialized, ` 💡\`\`\`LINKEDIN JOB ALERTS\`\`\`💡
+                    \n *Title*: ${title}
+                    \n *Company*: ${company}
+                    \n *Location*: ${location}
+                    \n *Link*: ${link}`
+                )
+                position++
+            });
+        }).catch( err => {console.log(err)})
+
     })
 });
 

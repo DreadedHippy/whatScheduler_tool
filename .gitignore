@@ -1,3 +1,5 @@
 /.wwebjs_auth
 /node_modules
 /package-lock.json
+/*.csv
+/.env
