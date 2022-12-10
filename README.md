@@ -32,8 +32,8 @@ By default, while the program is running, it sends the message `Hello from the o
 ## v0.1.0
 The second versino of WhatScheduler(v0.1.0) released on 10th, Dec, 2022 is out. This version can scrape job data from Linkedin (using *axios* and *cheerio*) and post them to the whatsapp group. Currently, the parameters for scraping is not easily editable. This will change in the future
 
-##### v0.1.0 Features
-- Jobs Scraping from LinkedIn
+
+#### [ChangeLogs](CHANGELOGS.md)
 
 #### License:
 MIT License
