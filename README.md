@@ -8,6 +8,9 @@
 Over the long period of time I've been using whatsapp (3+ Years), there were moments when I forgot
 to send messages such as birthday messages or messages requesting permission from someone and I thought: I've been coding since 2019, why don't I just *automate* it? Here we are 😅
 
+
+#### [ChangeLogs](CHANGELOG.md)
+
 #### How to Install and run:
 *Disclaimer: This was made with Node.js v18.12.1*
 - Clone the repository
@@ -29,11 +32,6 @@ By default, while the program is running, it sends the message `Hello from the o
 |----|------|--------|
 | Could not find expected browser (chrome) locally. Run `npm install` to download the correct Chromium revision (982053).| The program is unable to detect a browser usable by the puppeteer package dependency of whatsapp-web.js package| Run the command `node ./node_modules/whatsapp-web.js/node_modules/puppeteer/install.js`|
 
-## v0.1.0
-The second versino of WhatScheduler(v0.1.0) released on 10th, Dec, 2022 is out. This version can scrape job data from Linkedin (using *axios* and *cheerio*) and post them to the whatsapp group. Currently, the parameters for scraping is not easily editable. This will change in the future
-
-
-#### [ChangeLogs](CHANGELOG.md)
 
 #### License:
 MIT License
