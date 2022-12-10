@@ -1,5 +1,6 @@
 # WhatScheduler by **DreadedHippy**
 ![GitHub last commit](https://img.shields.io/github/last-commit/DreadedHippy/WhatScheduler_backend?color=%23ffbb00&logo=Github&logoColor=%23ffbb00&style=for-the-badge)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/DreadedHippy/WhatScheduler_backend?color=%23ffbb00&logo=Github&logoColor=%23ffdd00&style=for-the-badge)
 
 ##### This is a simple NodeJS program to automate sending and replying to whatsapp messages using *node-cron*,*qrcode-terminal* and *whatsapp-web* NPM packages. I hope to implement scheduled job-postings using Puppeteer. Buckle up for that 😉
 
