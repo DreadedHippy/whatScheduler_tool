@@ -10,7 +10,7 @@
     "whatsapp-web.js": "^1.18.4"
   },
   "name": "whatscheduler_backend",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
