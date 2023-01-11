@@ -1,6 +1,7 @@
 import qrcode from 'qrcode-terminal'
 import wweb from 'whatsapp-web.js';
 const { Client, LocalAuth } = wweb
+import schedule from 'node-schedule';
 import nodeCron from 'node-cron';
 // import scraper from './tools/scraper.js';
 import dotenv from 'dotenv'
@@ -32,7 +33,7 @@ client.on('ready', () => {
 	console.log('Client is ready!');
 	isReady = true
 	client.getChats().then( chats => {
-		console.log(chats)
+		// console.log(chats)
 		myGroup = chats.find((chat) => chat.name === testGroupName);
 		client.sendMessage(
 			myGroup.id._serialized, 'Hello from the other side!'
@@ -59,27 +60,39 @@ app.get('/', (req, res) => {
 });
 
 app.post('/simplesend', (req, res, next) => {
-	if(!myGroup){
-		res.status(404).json({
-			message: 'Group Not Found!'
+	const message = req.body
+	const date = new Date
+
+	function sendMessage(){
+		client.sendMessage(
+			myGroup.id._serialized, message.content
+		).then(() => {
+			console.log('Message sent!', 'Is instant?', message.isInstant)
+			res.status(200).json({
+				message: 'Sent!',
+			})
+		}).catch(err => {
+			console.log('Message not sent!',err)					
+			res.status(400).json({
+				message: 'Something went wrong...',
+			})
 		})
-		return
 	}
-	if(!req.body.frequency){
-		client.sendMessage(myGroup.id._serialized, req.body.message)
+
+	if(!message.isInstant){
+		const job = schedule.scheduleJob(message.date, function(){
+			client.sendMessage(
+				myGroup.id._serialized, message.content
+			)
+		})
+		console.log('Scheduled message')
 		res.status(200).json({
-			message: 'Sent!',
+			message: 'Message Scheduled!',
 		})
-		return
+		return;
 	}
-	
-	const job = nodeCron.schedule(req.body.frequency, () => {
-		client.sendMessage(myGroup.id._serialized, req.body.message)
-	})
-	
-	res.status(200).json({
-		message: 'Sending and resending!',
-	})
+
+	sendMessage()
 
 })
 

@@ -9,6 +9,7 @@
     "express": "^4.18.2",
     "http": "^0.0.1-security",
     "node-cron": "^3.0.2",
+    "node-schedule": "^2.1.0",
     "objects-to-csv": "^1.3.6",
     "puppeteer": "^19.3.0",
     "qrcode-terminal": "^0.12.0",
