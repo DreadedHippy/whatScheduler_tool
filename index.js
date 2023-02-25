@@ -5,7 +5,6 @@ const scraper = require('./backend/tools/scraper');
 require('dotenv').config()
 
 
-let isReady = false
 const mainGroupName = process.env.MAIN_GROUP_NAME
 const testGroupName = 'Whatsapp'
 
